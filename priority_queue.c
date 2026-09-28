@@ -49,19 +49,20 @@ static void heapify_up(MinHeap*heap,size_t index){
     }
 }
 
-void minheap_push(MinHeap*heap,HuffmanNode*node){
+int minheap_push(MinHeap*heap,HuffmanNode*node){
+    if(heap==NULL||node==NULL) return 0;
     if(heap->size>=HEAP_CAPACITY){
-        return; // heap full. This will not happen since only 256 symbols are possible and 512 array size is more than enough to hold that
+        return 0; // heap full. This will not happen since only 256 symbols are possible and 512 array size is more than enough to hold that
     }
-    if(heap==NULL||node==NULL) return;
     size_t index = heap->size;
     heap->data[index] = node;
     (heap->size)++;
     heapify_up(heap,index);
+    return 1;
 }
 
 HuffmanNode*minheap_pop(MinHeap*heap){
-    if(heap->size==0){
+    if(heap==NULL||heap->size==0){
         return NULL;
     }
 

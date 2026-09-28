@@ -12,7 +12,7 @@ typedef struct MinHeap{
 }MinHeap;
 
 MinHeap* minheap_create(void);
-void minheap_push(MinHeap*heap,HuffmanNode*node);
+int minheap_push(MinHeap*heap,HuffmanNode*node);
 HuffmanNode*minheap_pop(MinHeap*heap);
 void minheap_destroy(MinHeap*heap);
 
