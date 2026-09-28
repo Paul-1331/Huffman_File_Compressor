@@ -7,7 +7,7 @@
 #include <string.h>
 
 // write metadata/header of compressed file
-static int write_header(FILE*out, const uint64_t freq_table[HUFFMAN_SYMBOLS]){
+static int write_header(FILE*out, uint64_t freq_table[HUFFMAN_SYMBOLS]){
     if(fwrite(HUFFMAN_MAGIC,1,4,out)!=4){
         return 0;
     }
@@ -20,7 +20,7 @@ static int write_header(FILE*out, const uint64_t freq_table[HUFFMAN_SYMBOLS]){
     return 1;
 }
 
-static int read_header(FILE*in, const uint64_t freq_table[HUFFMAN_SYMBOLS]){
+static int read_header(FILE*in, uint64_t freq_table[HUFFMAN_SYMBOLS]){
     char magic[4];
 
     if(fread(magic,1,4,in)!=4){
