@@ -64,6 +64,26 @@ Each compressed file contains:
 Decompression validates the magic value and uses the frequency table to know
 how many bytes to reconstruct, so padding bits are ignored.
 
+## Known Limitations
+
+- Input and output paths must be different. Using the same path can truncate
+   and destroy the input file.
+- When multiple symbols have the same frequency, this implementation uses a
+   deterministic tie-breaking order. The file format does not store the Huffman
+   tree explicitly, so compressed files should be decompressed with this
+   implementation or another implementation using the same tree-building rules.
+- Huffman codes are stored in 32 bits. Highly unbalanced frequency
+   distributions that require codes longer than 32 bits are not supported.
+- Corrupted frequency tables are not fully validated. Invalid headers may be
+   interpreted as empty files or may request excessively large output.
+- Single-symbol compressed files do not validate the encoded bit stream during
+   decompression.
+- The compressed format stores integers using the host system's native byte
+   order, so files may not be portable between systems with different
+   architectures.
+- Final file-close errors are not currently reported, so some disk-write
+   failures may be reported as successful operations.
+
 ## Project Files
 
 - `main.c` - Command-line argument handling.
